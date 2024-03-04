@@ -11,7 +11,20 @@ dotenv.config({
 
 
 
-ConnectDB();
+ConnectDB().then(()=>{
+
+//kya pta database to coonect ho gya hain but humari express ki app uss database se baat nhi kr paa rhi toh voh check krne ke liye...
+app.on("error",(error)=>{
+        console.log("error",error);
+              })
+
+app.listen(process.env.PORT || 8000, ()=>{
+    console.log(`Server is running at port no:${process.env.PORT}`);
+})
+}).catch((err)=>{
+    console.log("MongoDB connection failed!!",err);
+});
+
 
 
 
@@ -44,7 +57,7 @@ console.log("error",error);
 
 
     }catch(err){
-        console.lof(err);
+        console.log(err);
     }
 })()
 
